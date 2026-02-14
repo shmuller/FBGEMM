@@ -350,7 +350,9 @@ template <typename T, typename accT>
 void PackBMatrix<T, accT>::pack(
     const block_type_t& block,
     const BlockingFactors* params) {
-  pack_unpack_(block, const_cast<T*>(smat_), BaseType::getBuf(), true, params);
+  if (smat_) {
+    pack_unpack_(block, const_cast<T*>(smat_), BaseType::getBuf(), true, params);
+  }
 }
 
 template <typename T, typename accT>
