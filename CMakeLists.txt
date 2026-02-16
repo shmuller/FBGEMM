@@ -81,6 +81,8 @@ if (NOT CMAKE_BUILD_TYPE OR CMAKE_BUILD_TYPE STREQUAL "")
     set(CMAKE_BUILD_TYPE "Release" CACHE STRING "" FORCE)
 endif()
 
+if (MSVC)
+
 #check if compiler supports openmp
 find_package(OpenMP)
 if (OpenMP_FOUND)
@@ -91,6 +93,11 @@ if (OpenMP_FOUND)
   set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
 else()
   message(WARNING "OpenMP is not supported by the compiler")
+endif()
+
+else()
+include_directories("${CMAKE_PREFIX_PATH}/include")
+add_definitions(-DFBGEMM_USE_OPENMP -D_OPENMP)
 endif()
 
 # Define file lists
