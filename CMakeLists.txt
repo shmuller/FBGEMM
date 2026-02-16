@@ -160,6 +160,7 @@ else(MSVC)
     src/FbgemmI64.cc
     src/FbgemmI8Depthwise3DAvx2.cc
     src/FbgemmI8DepthwiseAvx2.cc
+    src/FbgemmSparseDenseInt8Avx2.cc
     src/UtilsAvx2.cc
     PROPERTIES COMPILE_FLAGS "-Wno-uninitialized")
   set_source_files_properties(src/PackMatrix.cc
