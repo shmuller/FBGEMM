@@ -126,7 +126,7 @@ set_target_properties(fbgemm_generic fbgemm_avx2 fbgemm_avx512 PROPERTIES
 #2) MSVC uses /MD in default cxx compiling flags,
 #need to change it to /MT in static case
 if(MSVC)
-  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4244 /wd4267 /wd4305 /wd4309")
+  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /fp:fast /wd4244 /wd4267 /wd4305 /wd4309")
   if(FBGEMM_LIBRARY_TYPE STREQUAL "static")
     target_compile_definitions(fbgemm_generic PRIVATE ASMJIT_STATIC)
     target_compile_definitions(fbgemm_avx2 PRIVATE ASMJIT_STATIC)
@@ -146,6 +146,7 @@ else(MSVC)
   string(APPEND CMAKE_CXX_FLAGS " -Wextra")
   string(APPEND CMAKE_CXX_FLAGS " -Werror")
   string(APPEND CMAKE_CXX_FLAGS " -Wno-deprecated-declarations")
+  string(APPEND CMAKE_CXX_FLAGS " -ffast-math")
   target_compile_options(fbgemm_avx2 PRIVATE
     "-m64" "-mavx2" "-mf16c" "-mfma")
   target_compile_options(fbgemm_avx512 PRIVATE
